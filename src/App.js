@@ -1,21 +1,53 @@
 import { styled } from "styled-components";
 import "./App.css";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
+  CloseButton,
   LargeButton,
   MidiumButton,
   SmallButton,
-} from "./StyleComponents/Buttons";
-import {
-  FisrtModal,
-  ModalBackground,
-  SecondModal,
-} from "./StyleComponents/Modal";
-import { Input } from "./StyleComponents/Inputs";
+} from "./Components/Buttons";
+import { FisrtModal, ModalBackground, SecondModal } from "./Components/Modal";
+import { Input } from "./Components/Inputs";
+import { Select } from "./Components/Selects";
 
 function App() {
   const [name, setName] = useState("");
   const [num, setNum] = useState("");
+
+  // 모달 제어
+  const [modalOpen1, setModalOpen1] = useState(false);
+  const [modalOpen2, setModalOpen2] = useState(false);
+  const modalRef = useRef();
+  const showModal1 = () => {
+    setModalOpen1(true);
+  };
+
+  const showModal2 = () => {
+    setModalOpen2(true);
+  };
+
+  const closeModal = () => {
+    setModalOpen1(false);
+  };
+
+  const closeModa2 = () => {
+    setModalOpen2(false);
+  };
+
+  // useEffect(() => {
+  //   const handleClickOutside = (event) => {
+  //     if (modalRef.current && !modalRef.current.contains(event.target)) {
+  //       setModalOpen2(false);
+  //     }
+  //   };
+
+  //   document.addEventListener("mousedown", handleClickOutside);
+
+  //   return () => {
+  //     document.removeEventListener("mousedown", handleClickOutside);
+  //   };
+  // });
 
   // 가격 입력 제어, 정규표현식
   const formatNumber = (value) => {
@@ -93,8 +125,12 @@ function App() {
       <div>
         <h1>Modal</h1>
         <ButtonMarginBox>
-          <SmallButton color="#000000">open modal</SmallButton>
-          <LargeButton color="#d63031">open modal</LargeButton>
+          <SmallButton color="#000000" onClick={showModal1}>
+            open modal
+          </SmallButton>
+          <LargeButton color="#d63031" onClick={showModal2}>
+            open modal
+          </LargeButton>
         </ButtonMarginBox>
       </div>
       <div>
@@ -106,32 +142,61 @@ function App() {
               gap: "10px",
             }}
           >
-            <div>
-              <button>리액트</button>
+            <div style={{ position: "relative" }}>
+              <Select>
+                <div>리액트</div>
+                <div>▼</div>
+              </Select>
             </div>
-            <div>
-              <button>리액트</button>
+            <div style={{ position: "relative" }}>
+              <Select>
+                <div>리액트</div>
+                <div>▼</div>
+              </Select>
+              <div>
+                <li>리액트</li>
+                <li>자바</li>
+                <li>스프링</li>
+                <li>리액트 네이티브</li>
+              </div>
             </div>
           </div>
         </SelectBox>
       </div>
       <div id="modal">
-        {/* <ModalBackground />
-        <FisrtModal>
+        {modalOpen1 && (
           <div>
-            닫기와 확인 버튼 2개가 있고, 외부 영역을 눌러도 모달이 닫히지
-            않아요.
+            <ModalBackground />
+            <FisrtModal>
+              <div>
+                닫기와 확인 버튼 2개가 있고, 외부 영역을 눌러도 모달이 닫히지
+                않아요.
+              </div>
+              <ButtonMarginBox
+                style={{
+                  position: "absolute",
+                  bottom: "12px",
+                  right: "12px",
+                }}
+              >
+                <SmallButton color="#d63031" onClick={closeModal}>
+                  닫기
+                </SmallButton>
+                <SmallButton color="#000000">확인</SmallButton>
+              </ButtonMarginBox>
+            </FisrtModal>
           </div>
-          <div>
-            <button>닫기</button>
-            <button>확인</button>
+        )}
+        {modalOpen2 && (
+          <div ref={modalRef}>
+            <ModalBackground />
+            <SecondModal>
+              닫기 버튼 1개가 있고, <br />
+              외부 영역을 누르면 모달이 닫혀요.
+              <CloseButton onClick={closeModa2}>X</CloseButton>
+            </SecondModal>
           </div>
-        </FisrtModal> */}
-        {/* <SecondModal>
-          닫기 버튼 1개가 있고, <br />
-          외부 영역을 누르면 모달이 닫혀요.
-          <button>X</button>
-        </SecondModal> */}
+        )}
       </div>
     </div>
   );
