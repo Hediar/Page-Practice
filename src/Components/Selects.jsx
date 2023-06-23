@@ -15,16 +15,17 @@ export const Select = styled.select`
 
 export const OptionList = styled.ul`
   position: absolute;
-  top: 28px;
+  top: 120px;
   left: 0;
-  width: 100%;
-  background: white;
-  color: #fff;
+  z-index: 100;
+  width: 100px;
+  background: blue;
+  color: black;
   list-style-type: none;
   padding: 0;
   border-radius: 6px;
-  overflow: hidden;
-  max-height: 0;
+  /* overflow: hidden; */
+  /* max-height: 0; */
   transition: 0.3s ease-in;
   &:active {
     max-height: 500px;

@@ -185,34 +185,42 @@ function App() {
         </ButtonMarginBox>
       </div>
       <div>
-        <SelectBox>
-          <h1>Select</h1>
-          <div
-            style={{
-              display: "flex",
-              gap: "10px",
-            }}
-          >
-            <div style={{ position: "relative" }}>
-              <Select>
-                {/* <div>리액트</div>
+        <div style={{ position: "relative" }}>
+          <SelectBox>
+            <h1>Select</h1>
+            <div
+              style={{
+                display: "flex",
+                gap: "10px",
+              }}
+            >
+              <div style={{ position: "relative" }}>
+                <Select>
+                  {/* <div>리액트</div>
                 <div>▼</div> */}
-              </Select>
-              <OptionList>
-                <li>리액트</li>
-                <li>자바</li>
-                <li>스프링</li>
-                <li>리액트네이티브</li>
-              </OptionList>
-            </div>
-            <div style={{ position: "relative" }}>
-              <Select onChange={handleChange}>
-                {/* <div>리액트</div>
+                </Select>
+                <OptionList>
+                  <li>리액트</li>
+                  <li>자바</li>
+                  <li>스프링</li>
+                  <li>리액트네이티브</li>
+                </OptionList>
+              </div>
+              <div style={{ position: "relative" }}>
+                <Select onChange={handleChange}>
+                  {/* <div>리액트</div>
                 <div>▼</div> */}
-              </Select>
+                </Select>
+              </div>
             </div>
-          </div>
-        </SelectBox>
+          </SelectBox>
+          {/* <OptionList>
+            <li>리액트</li>
+            <li>자바</li>
+            <li>스프링</li>
+            <li>리액트네이티브</li>
+          </OptionList> */}
+        </div>
       </div>
       <div id="modal">
         {modalOpen1 && (
@@ -240,7 +248,7 @@ function App() {
         )}
         {modalOpen2 && (
           <div ref={modalRef}>
-            <ModalBackground />
+            <ModalBackground onClick={closeModa2} />
             <SecondModal>
               닫기 버튼 1개가 있고, <br />
               외부 영역을 누르면 모달이 닫혀요.
@@ -279,7 +287,7 @@ const ButtonSubBox = styled.div`
 const SelectBox = styled.div`
   border: 3px solid rgb(221, 221, 221);
   height: 200px;
-  overflow: hidden;
+  overflow: hidden; // 바깥으로 나가면 안보임
   position: relative;
-  margin-top: 50px;
+  margin: 50px 10px 10px 10px;
 `;
