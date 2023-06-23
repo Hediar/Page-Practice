@@ -1,6 +1,6 @@
 import { styled } from "styled-components";
 
-export const Select = styled.select`
+export const Select = styled.button`
   border: 1px solid rgb(221, 221, 221);
   height: 40px;
   width: 300px;
@@ -15,19 +15,27 @@ export const Select = styled.select`
 
 export const OptionList = styled.ul`
   position: absolute;
-  top: 120px;
-  left: 0;
-  z-index: 100;
-  width: 100px;
-  background: blue;
+  top: 655px;
+  left: 18px;
+  z-index: 100px;
+  width: 290px;
+  background: rgb(255, 255, 255);
+  border: 1px solid rgb(221, 221, 221);
   color: black;
   list-style-type: none;
   padding: 0;
   border-radius: 6px;
-  /* overflow: hidden; */
-  /* max-height: 0; */
+  align-items: center;
   transition: 0.3s ease-in;
   &:active {
     max-height: 500px;
+  }
+`;
+
+export const DetailList = styled.li`
+  font-size: 12px;
+  padding: 10px;
+  &:hover {
+    background-color: #c0c0c0;
   }
 `;

@@ -9,7 +9,7 @@ import {
 } from "./Components/Buttons";
 import { FisrtModal, ModalBackground, SecondModal } from "./Components/Modal";
 import { Input } from "./Components/Inputs";
-import { OptionList, Select } from "./Components/Selects";
+import { DetailList, OptionList, Select } from "./Components/Selects";
 import { VscBellDot, VscChevronRight } from "react-icons/vsc";
 
 function App() {
@@ -19,7 +19,7 @@ function App() {
   // 모달 제어
   const [modalOpen1, setModalOpen1] = useState(false);
   const [modalOpen2, setModalOpen2] = useState(false);
-  const modalRef = useRef();
+
   const showModal1 = () => {
     setModalOpen1(true);
   };
@@ -49,11 +49,29 @@ function App() {
     setNum(formatNumber(value));
   };
 
-  // select
+  // select 제어
+  const [selectState, setselectState] = useState(false);
+  const [selectValue, setselectValue] = useState("리액트");
 
-  const handleChange = (e) => {
-    // event handler
-    console.log(e.target.value);
+  const [selectState2, setselectState2] = useState(false);
+  const [selectValue2, setselectValue2] = useState("리액트");
+
+  const showSelect = () => {
+    setselectState(true);
+  };
+
+  const showSelect2 = () => {
+    setselectState2(true);
+  };
+
+  const selectedValue = (event) => {
+    setselectValue(event.target.innerText);
+    setselectState(false);
+  };
+
+  const selectedValue2 = (event) => {
+    setselectValue2(event.target.innerText);
+    setselectState2(false);
   };
 
   return (
@@ -144,31 +162,36 @@ function App() {
               }}
             >
               <div style={{ position: "relative" }}>
-                <Select>
-                  {/* <div>리액트</div>
-                <div>▼</div> */}
+                <Select onClick={showSelect}>
+                  <div>{selectValue}</div>
+                  <div>▼</div>
                 </Select>
-                <OptionList>
-                  <li>리액트</li>
-                  <li>자바</li>
-                  <li>스프링</li>
-                  <li>리액트네이티브</li>
-                </OptionList>
               </div>
               <div style={{ position: "relative" }}>
-                <Select onChange={handleChange}>
-                  {/* <div>리액트</div>
-                <div>▼</div> */}
+                <Select onClick={showSelect2}>
+                  <div>{selectValue2}</div>
+                  <div>▼</div>
                 </Select>
+                {selectState2 && (
+                  <div>
+                    <OptionList
+                      style={{
+                        top: "28px",
+                        left: "6px",
+                      }}
+                    >
+                      <DetailList onClick={selectedValue2}>리액트</DetailList>
+                      <DetailList onClick={selectedValue2}>자바</DetailList>
+                      <DetailList onClick={selectedValue2}>스프링</DetailList>
+                      <DetailList onClick={selectedValue2}>
+                        리액트네이티브
+                      </DetailList>
+                    </OptionList>
+                  </div>
+                )}
               </div>
             </div>
           </SelectBox>
-          {/* <OptionList>
-            <li>리액트</li>
-            <li>자바</li>
-            <li>스프링</li>
-            <li>리액트네이티브</li>
-          </OptionList> */}
         </div>
       </div>
       <div id="modal">
@@ -196,7 +219,7 @@ function App() {
           </div>
         )}
         {modalOpen2 && (
-          <div ref={modalRef}>
+          <div>
             <ModalBackground onClick={closeModa2} />
             <SecondModal>
               닫기 버튼 1개가 있고, <br />
@@ -206,6 +229,16 @@ function App() {
           </div>
         )}
       </div>
+      {selectState && (
+        <div>
+          <OptionList>
+            <DetailList onClick={selectedValue}>리액트</DetailList>
+            <DetailList onClick={selectedValue}>자바</DetailList>
+            <DetailList onClick={selectedValue}>스프링</DetailList>
+            <DetailList onClick={selectedValue}>리액트네이티브</DetailList>
+          </OptionList>
+        </div>
+      )}
     </div>
   );
 }
