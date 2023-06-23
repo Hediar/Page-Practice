@@ -74,8 +74,27 @@ function App() {
     setselectState2(false);
   };
 
+  const hideSelect = () => {
+    setselectState(false);
+    setselectState2(false);
+  };
+
+  const selectRef = useRef();
+  const handleClick = (event) => {
+    if (Boolean(selectRef.current) && event.target !== selectRef.current) {
+      hideSelect();
+    }
+  };
+
+  // useEffect(() => {
+  //   document.addEventListener("click", handleClick);
+  //   return () => {
+  //     document.removeEventListener("click", handleClick);
+  //   };
+  // });
+
   return (
-    <div>
+    <div onClick={handleClick}>
       <ButtonMarginBox
         style={{
           flexDirection: "column",
@@ -179,6 +198,7 @@ function App() {
                         top: "28px",
                         left: "6px",
                       }}
+                      ref={selectRef}
                     >
                       <DetailList onClick={selectedValue2}>리액트</DetailList>
                       <DetailList onClick={selectedValue2}>자바</DetailList>
@@ -231,7 +251,7 @@ function App() {
       </div>
       {selectState && (
         <div>
-          <OptionList>
+          <OptionList ref={selectRef}>
             <DetailList onClick={selectedValue}>리액트</DetailList>
             <DetailList onClick={selectedValue}>자바</DetailList>
             <DetailList onClick={selectedValue}>스프링</DetailList>
